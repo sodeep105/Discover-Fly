@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main id='main' class="main-content container">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id='fclassQuantity' class="inp-style inp-width" type="number" value="0" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <button id='minusButtonFclass' class="btn btn-info"><i class="fas fa-plus"></i>-</button>
+                    <button id='addButtonFclass' class="btn btn-info"><i class="fas fa-minus"></i>+</button>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id='ecoQuantity' class="inp-style inp-width" type="number" value="0" name="">
+                </div>
+                <div class="plus-minus-btn">
+                    <button id='minusButtonEco' class="btn btn-info"><i class="fas fa-plus"></i>-</button>
+                    <button id='addButtonEco' class="btn btn-info"><i class="fas fa-minus"></i>+</button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id='subtotal'>0</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id='tax'>0</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$<span id='total'>0</span></p>
+                    </div>
+                </div>
+            </div>
+            <button id='book' class="btn-style">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+        </div>
+    </section>
+
+    <!--Thank You-->
+    <div id='thankyou'>
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">Purchase Successful!</div>
+            <div class="card-body">
+              <p class="card-text">Thank you for flying with us, we wish you a happy journey.</p>
+            </div>
+        </div>
+    </div>
+   
+    <script>
+        const bookbtn = document.getElementById('book');
+        bookbtn.addEventListener('click', function(){
+            const purchaseArea = document.getElementById('main');
+            purchaseArea.style.display = 'none';
+            const transactionArea = document.getElementById('thankyou');
+            transactionArea.style.display = 'block';
+        })
+        //FOR FIRST CLASS PART
+           //event handler for add button
+           const addbtn = document.getElementById('addButtonFclass');
+           addbtn.addEventListener('click', function(){
+              btnfunc('fclassQuantity',1);
+              updateTotal();
+           })
+     
+           //add eventhandler for minus button 
+           const minusbtn = document.getElementById('minusButtonFclass');
+           minusbtn.addEventListener('click', function(){
+              let quantity = parseInt(document.getElementById('fclassQuantity').value);
+              if(quantity <= 0){
+                 console.log(parseInt(document.getElementById('fclassQuantity').value));
+                 return; 
+              } else {
+                 btnfunc('fclassQuantity',-1);
+                 updateTotal();
+              }
+     
+              
+           })
+        //FOR Economic PART
+           //add btn
+           const addbtnEco = document.getElementById('addButtonEco');
+           addbtnEco.addEventListener('click', function(){
+              btnfunc('ecoQuantity',1);
+              updateTotal();
+           })
+           //minus btn
+           const minusbtnCase = document.getElementById('minusButtonEco');
+           minusbtnCase.addEventListener('click', function(){
+              let quantity = parseInt(document.getElementById('ecoQuantity').value);
+              if(quantity <= 0){
+                 console.log(parseInt(document.getElementById('ecoQuantity').value));
+                 return; 
+              } else {
+                 btnfunc('ecoQuantity',-1);
+                 updateTotal();
+              }
+     
+              
+           })
+     
+           //calling all the functions required when button is clicked
+           function btnfunc(qty,int,){
+              const currentQuantity = updateQuantity(qty, int);
+              document.getElementById(qty).value = currentQuantity;
+              
+           }
+     // TOTAL PART
+     
+           function updateQuantity(id, int){
+              const prevQuantity = parseFloat(document.getElementById(id).value);
+              return prevQuantity + int;
+           }
+    
+           function updateTotal(){
+              const firstclassPrice = parseInt(document.getElementById('fclassQuantity').value)*150;
+              const economicPrice = parseInt(document.getElementById('ecoQuantity').value)*100;
+              const subtotal = firstclassPrice + economicPrice;
+              document.getElementById('subtotal').innerText = subtotal;
+              document.getElementById('total').innerText = subtotal + updateTax('subtotal');
+           }
+           function updateTax(subtotal){
+              const subTotal = parseFloat(document.getElementById(subtotal).innerText);
+              const tax =  0.1*subTotal;
+              document.getElementById('tax').innerText = tax.toFixed(2);
+              return tax;
+           }
+        </script>
+     
+</body>
+
+</html>
